@@ -13,13 +13,14 @@ private:
 	std::vector<std::vector<double>> mat; // matrix data structure
 
 public:
+	// constructor and destructor
 	Matrix(std::vector<double> values, int rows, int columns);
 	~Matrix();
 
 	// real value addition operators (+)
 	Matrix operator+(const double &value) const;
 	Matrix &operator+=(const double &value);
-	Matrix &operator+() const;
+	Matrix operator+() const;
 	friend Matrix operator+(const int &value, const Matrix &mat);
 
 	// matrix addition operators (+)
@@ -29,7 +30,7 @@ public:
 	// real value subtraction operators (-)
 	Matrix operator-(const double &value) const;
 	Matrix &operator-=(const double &value);
-	Matrix &operator-() const;
+	Matrix operator-() const;
 	friend Matrix operator-(const int &value, const Matrix &mat);
 
 	// matrix subtraction operators (-)
@@ -46,12 +47,12 @@ public:
 	Matrix &operator*=(const Matrix &mat);
 
 	// comparison operators (<, >, <=, >=, ==, !=)
-	bool operator<(const Matrix &mat);
-	bool operator>(const Matrix &mat);
-	bool operator<=(const Matrix &mat);
-	bool operator>=(const Matrix &mat);
+	bool operator<(const Matrix &mat) const;
+	bool operator>(const Matrix &mat) const;
+	bool operator<=(const Matrix &mat) const;
+	bool operator>=(const Matrix &mat) const;
 	bool operator==(const Matrix &mat) const;
-	bool operator!=(const Matrix &mat);
+	bool operator!=(const Matrix &mat) const;
 
 	// increment and decrement operators
 	Matrix &operator++();	 // prefix (++x)
