@@ -1,3 +1,6 @@
+#include <iostream>
+#include <vector>
+
 namespace zich
 {
 	class Matrx;
@@ -7,7 +10,7 @@ namespace zich
 class Matrix
 {
 private:
-	vector<vector<double>> mat; // matrix data structure
+	std::vector<std::vector<double>> mat; // matrix data structure
 
 public:
 	Matrix(std::vector<double> values, int rows, int columns);
@@ -47,7 +50,7 @@ public:
 	bool operator>(const Matrix &mat);
 	bool operator<=(const Matrix &mat);
 	bool operator>=(const Matrix &mat);
-	bool operator==(const Matrix &mat);
+	bool operator==(const Matrix &mat) const;
 	bool operator!=(const Matrix &mat);
 
 	// increment and decrement operators
@@ -57,6 +60,6 @@ public:
 	Matrix &operator--(int); // postfix (x--)
 
 	// input and output operators
-	friend ostream &operator<<(ostream &out, const Matrix &mat);
-	friend istream &operator>>(istream &in, const Matrix &mat);
+	friend std::ostream &operator<<(std::ostream &out, const Matrix &mat);
+	friend std::istream &operator>>(std::istream &in, const Matrix &mat);
 };
