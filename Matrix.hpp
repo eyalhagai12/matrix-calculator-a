@@ -20,7 +20,7 @@ public:
 	// real value addition operators (+)
 	Matrix operator+(const double &value) const;
 	Matrix &operator+=(const double &value);
-	Matrix operator+() const;
+	const Matrix operator+() const;
 	friend Matrix operator+(const int &value, const Matrix &mat);
 
 	// matrix addition operators (+)
@@ -30,7 +30,7 @@ public:
 	// real value subtraction operators (-)
 	Matrix operator-(const double &value) const;
 	Matrix &operator-=(const double &value);
-	Matrix operator-() const;
+	const Matrix operator-() const;
 	friend Matrix operator-(const int &value, const Matrix &mat);
 
 	// matrix subtraction operators (-)

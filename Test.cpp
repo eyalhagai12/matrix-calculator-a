@@ -49,29 +49,13 @@ vector<double> operator-(vector<double> v1, vector<double> v2)
 	return result;
 }
 
-// print a vector (prints up to 2 decimal points)
-ostream &operator<<(ostream &out, vector<double> vec)
-{
-	out << "[";
-	for (vector<double>::iterator it = vec.begin(); it != vec.end(); ++it)
-	{
-		out << setprecision(2) << fixed << *it;
-		if (it != vec.end() - 1)
-		{
-			out << "\t";
-		}
-	}
-	out << "]" << endl;
-
-	return out;
-}
-
-TEST_CASE("Matrix addition")
+TEST_CASE("Addition")
 {
 	// variables
 	vector<double> v1 = {1.25, -1.2, 7, 5.3, -14, 3.3, -21.4, 87.5, 0.8, -8.9, -7, -6.4, 1, 29, -19.2, 0.01};
 	vector<double> v2 = {3.42, 6.87, -1.9, 8.32, -9, -19, -21.4, 6.9, -0.8, 9.9, -7, -6.4, -1, 10, 38.4, 0.001};
 	vector<double> v1_plus1 = {2.25, -0.2, 8, 6.3, -13, 4.3, -20.4, 88.5, 1.8, -7.9, -6, -5.4, 2, 30, -18.2, 1.01};
+	vector<double> nums_to_add = {2, 3.5, -1, 0.2};
 
 	// calculate the sum of v1 and v2
 	vector<double> sum_vec = v1 + v2;
@@ -138,6 +122,28 @@ TEST_CASE("Matrix addition")
 		++a;
 		CHECK(b == a);
 	}
+
+	// add real values
+	for (size_t k = 0; k < aspect_ratios.size(); ++k)
+	{
+		vector<int> params = aspect_ratios.at(k);
+		for (size_t i = 0; i < nums_to_add.size(); ++i)
+		{
+			// get the wanted vector
+			vector<double> temp;
+			for (size_t j = 0; j < v1.size(); ++j)
+			{
+				temp.push_back(v1.at(j) + nums_to_add[i]);
+			}
+
+			// get wanted matrices
+			Matrix answer(temp, params[0], params[1]);
+			Matrix a(v1, params.at(0), params.at(1));
+
+			// assert
+			CHECK(a + nums_to_add[i] == answer);
+		}
+	}
 }
 
 TEST_CASE("Matrix subtraction")
@@ -146,6 +152,7 @@ TEST_CASE("Matrix subtraction")
 	vector<double> v1 = {1.25, -1.2, 7, 5.3, -14, 3.3, -21.4, 87.5, 0.8, -8.9, -7, -6.4, 1, 29, -19.2, 0.01};
 	vector<double> v2 = {3.42, 6.87, -1.9, 8.32, -9, -19, -21.4, 6.9, -0.8, 9.9, -7, -6.4, -1, 10, 38.4, 0.001};
 	vector<double> v1_minus1 = {0.25, -2.2, 6, 4.3, -15, 2.3, -22.4, 86.5, -0.2, -9.9, -8, -7.4, 0, 28, -20.2, -1.01};
+	vector<double> nums_to_sub = {2, 3.5, -1, 0.2};
 
 	// calculate the difference of v1 and v2
 	vector<double> sub_vec = v1 - v2;
@@ -212,9 +219,31 @@ TEST_CASE("Matrix subtraction")
 		--a;
 		CHECK(b == a);
 	}
+
+	// add real values
+	for (size_t k = 0; k < aspect_ratios.size(); ++k)
+	{
+		vector<int> params = aspect_ratios.at(k);
+		for (size_t i = 0; i < nums_to_sub.size(); ++i)
+		{
+			// get the wanted vector
+			vector<double> temp;
+			for (size_t j = 0; j < v1.size(); ++j)
+			{
+				temp.push_back(v1.at(j) - nums_to_sub[i]);
+			}
+
+			// get wanted matrices
+			Matrix answer(temp, params[0], params[1]);
+			Matrix a(v1, params.at(0), params.at(1));
+
+			// assert
+			CHECK(a - nums_to_sub[i] == answer);
+		}
+	}
 }
 
-TEST_CASE("Matrix multiplication")
+TEST_CASE("Multiplication")
 {
 	// variables
 	vector<double> v1 = {1.25, -1.2, 7, 5.3, -14, 3.3, -21.4, 87.5, 0.8, -8.9, -7, -6.4, 1, 29, -19.2, 0.01};
@@ -237,4 +266,24 @@ TEST_CASE("Matrix multiplication")
 	// check *= operator
 	a *= b;
 	CHECK(result == a);
+
+	// check real numbers
+	Matrix m1 = 10 * b;
+	Matrix m2 = b * 10;
+
+	// prepare answers vectors
+	vector<double> v2_times10;
+	for (size_t i = 0; i < v2.size(); ++i)
+	{
+		v2_times10.push_back(v2.at(i) * 10);
+	}
+
+	Matrix answer(v2_times10, 2, 8);
+	CHECK(answer == m1);
+	CHECK(answer == m2);
+}
+
+TEST_CASE("Bad Input")
+{
+	
 }

@@ -10,7 +10,7 @@ Matrix::~Matrix() {}
 // real value addition operators (+)
 Matrix Matrix::operator+(const double &value) const {return Matrix(empty, 1, 1);}
 Matrix &Matrix::operator+=(const double &value) {return *this;}
-Matrix Matrix::operator+() const {return *this;}
+const Matrix Matrix::operator+() const {return *this;}
 Matrix operator+(const int &value, const Matrix &mat) {return Matrix(empty, 1, 1);}
 
 // matrix addition operators (+)
@@ -20,7 +20,7 @@ Matrix &Matrix::operator+=(const Matrix &mat) {return *this;}
 // real value subtraction operators (-)
 Matrix Matrix::operator-(const double &value) const {return Matrix(empty, 1, 1);}
 Matrix &Matrix::operator-=(const double &value) {return *this;}
-Matrix Matrix::operator-() const {return *this;}
+const Matrix Matrix::operator-() const {return *this;}
 Matrix operator-(const int &value, const Matrix &mat) {return Matrix(empty, 1, 1);}
 
 // matrix subtraction operators (-)
