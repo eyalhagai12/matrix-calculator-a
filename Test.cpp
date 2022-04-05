@@ -283,6 +283,10 @@ TEST_CASE("Multiplication")
 	CHECK(answer == m2);
 }
 
+TEST_CASE("Comparison operators"){
+	
+}
+
 TEST_CASE("Bad Input")
 {
 	
