@@ -187,7 +187,7 @@ TEST_CASE("Matrix subtraction")
 		Matrix b(v2, params.at(0), params.at(1));
 		Matrix sum(sub_vec, params.at(0), params.at(1));
 
-		// add using -=
+		// subtract using -=
 		a -= b;
 		CHECK(sum == a);
 	}
@@ -285,8 +285,64 @@ TEST_CASE("Multiplication")
 
 TEST_CASE("Comparison operators")
 {
+	// base data
+	vector<double> v1 = {1.25, -1.2, 7, 5.3, -14, 3.3, -21.4, 87.5, 0.8, -8.9, -7, -6.4, 1, 29, -19.2, 0.01};
+	vector<double> v2 = {3.42, 6.87, -1.9, 8.32, -9, -19, -21.4, 6.9, -0.8, 9.9, -7, -6.4, -1, 10, 38.4, 0.001};
+
+	// matrices
+	Matrix mat1(v1, 2, 8);
+	Matrix mat2(v2, 2, 8);
+	Matrix mat3(v1, 8, 2);
+	Matrix mat4(v1, 2, 8);
+
+	// ==
+	CHECK(mat1 == mat4);
+
+	// !=
+	CHECK(mat1 != mat2);
+	CHECK(mat1 != mat3);
+
+	// <=
+	CHECK(mat1 >= mat2);
+
+	// >=
+	CHECK(mat2 <=  mat1);
+
+	// <
+	CHECK(mat2 < mat1);
+
+	// >
+	CHECK(mat1 > mat2);
+
 }
 
 TEST_CASE("Bad Input")
 {
+	// base data
+	vector<double> v1 = {1.25, -1.2, 7, 5.3, -14, 3.3, -21.4, 87.5, 0.8, -8.9, -7, -6.4, 1, 29, -19.2, 0.01};
+	vector<double> v2 = {3.42, 6.87, -1.9, 8.32, -9, -19, -21.4, 6.9, -0.8, 9.9, -7, -6.4, -1, 10, 38.4, 0.001};
+
+	
+	// matrices
+	Matrix mat1(v1, 2, 8);
+	Matrix mat2(v2, 2, 8);
+	Matrix mat3(v1, 8, 2);
+	Matrix mat4(v1, 2, 8);
+
+	// invalid initialization
+	CHECK_THROWS(Matrix mat(v1, 0, 3));
+	CHECK_THROWS(Matrix mat(v1, 2, 0));
+	CHECK_THROWS(Matrix mat(v1, -6, 3));
+	CHECK_THROWS(Matrix mat(v1, 2, -2));
+	CHECK_THROWS(Matrix mat(v1, 16, 16));
+
+	// invalid addition and subtraction
+	CHECK_THROWS(mat1 + mat3);
+	CHECK_THROWS(mat1 += mat3);
+	CHECK_THROWS(mat1 - mat3);
+	CHECK_THROWS(mat1 -= mat3);
+
+	// invalid multiplication
+	CHECK_THROWS(mat1 * mat3);
+
 }
